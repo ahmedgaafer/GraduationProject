@@ -9,8 +9,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ContactIcon from '@material-ui/icons/ContactSupportOutlined';
-import Home from '../pages/Home';
-import AboutUs from '../pages/Aboutus';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import HomeIcon from '@material-ui/icons/Home';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -33,8 +34,8 @@ const useStyles = makeStyles({
 
 export default function TemporaryDrawer(props) {
   const anch = 'left';
-  const topNav = [['Login', <AccountIcon/>]];
-  const buttomNav = [['Home', <ContactIcon/>, <Home />,'/'],['About Us', <ContactIcon/>, <AboutUs />,'/AboutUs']];
+  const topNav = [['Login', <AccountIcon/>, '/Signin'], ['Sign up',<PersonAddIcon/>, '/Signup' ]];
+  const buttomNav = [['Home', <HomeIcon/>,'/'], ['About Us', <ContactIcon/>, '/AboutUs']];
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -63,7 +64,7 @@ export default function TemporaryDrawer(props) {
 
         <List>
           {topNav.map((text, index) => (
-            <Link className={classes.textLink} to={text[3] || ""}>
+            <Link className={classes.textLink} to={text[2] || ""}>
               <ListItem button key={text[0]}>
                   <ListItemIcon>{text[1]}</ListItemIcon>
                   <ListItemText primary={text[0]} />
@@ -74,7 +75,7 @@ export default function TemporaryDrawer(props) {
         <Divider />
         <List>
           {buttomNav.map((text, index) => (
-            <Link className={classes.textLink} to={text[3]}>
+            <Link className={classes.textLink} to={text[2]}>
               <ListItem button key={text[0]}>
                 <ListItemIcon>{text[1]}</ListItemIcon>
                 <ListItemText primary={text[0]} />

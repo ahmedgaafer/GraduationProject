@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Home from './pages/Home';
-import AboutUs from './pages/Aboutus';
 import * as serviceWorker from './serviceWorker';
 import {AuthProvider} from './providers/Auth';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
-} from "react-router-dom"
+} from "react-router-dom";
+
+import Home from './pages/Home';
+import AboutUs from './pages/Aboutus';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+
 
 function Routing() {
   return (
@@ -22,6 +25,9 @@ function Routing() {
             <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />            
             <Route path="/AboutUs" component={AboutUs} />
+            <Route path="/Signin" component={Signin} />
+            <Route path="/Signup" component={Signup} /> 
+
           </Switch>
         </div>
       </Router>
