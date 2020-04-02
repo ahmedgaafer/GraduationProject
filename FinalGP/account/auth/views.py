@@ -14,15 +14,15 @@ class Login(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self , request , *args , **kwargs):
         data = request.data
-        username = data.get('username')
+        email = data.get('email')
         password = data.get('password')
-        query = User.objects.filter((Q(Username=username) & Q(Password=password)))
+        query = User.objects.filter((Q(Email=email) & Q(Password=password)))
         if len(query):
-            payload  = jwt_payload_handler(username=username , password=password)
+            payload  = jwt_payload_handler(email=email , password=password)
             token    = jwt_encode_handler(payload)
             res = {
                      'message'  : 'Login Successfully' ,
-                     'username' : username ,
+                     'email' : email ,
                      'password' : password ,
                      'Token'    : token
             }
@@ -33,27 +33,28 @@ class Login(APIView):
             res = {
                 'message' : 'Invalid username or password'
             }
-            return Response(res , status=200)
+            return Response(res , status=401)
 
 class Register(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self , request , *args , **kwargs):
         data     = request.data
-        Username = data.get('username')
+        FirstName = data.get('firstname')
+        LastName =data.get('lastname')
         Password = data.get('password')
         Email    = data.get('email')
         Status   = data.get('status')
-        query = User.objects.filter((Q(Username=Username)))
+        query = User.objects.filter((Q(Email=Email)))
         if len(query) == 0:
-            query = User(Username=Username, Password=Password, Email=Email, Status=Status)
+            query = User(FirstName=FirstName, LastName=LastName , Password=Password, Email=Email, Status=Status)
             query.save()
-            payload = jwt_payload_handler(username=Username, password=Password)
+            payload = jwt_payload_handler(email=Email, password=Password)
             token = jwt_encode_handler(payload)
             Query = Token(Username=query, Token=token)
             Query.save()
             res = {
                 'message': 'You have registered successfully',
-                'username': Username,
+                'email': Email,
                 'password': Password,
                 'Token': token
             }
@@ -63,7 +64,7 @@ class Register(APIView):
             res = {
                 'message' : 'username had been taken'
             }
-            return Response(res , status=200)
+            return Response(res , status=401)
 
 class Showdata(APIView):
     permission_classes = [IsTokenActive]

@@ -18,7 +18,7 @@ def schema_view(request):
                 action='post',
                 description='Login API',
                 fields=[
-                    coreapi.Field(name='username' , required=True , type='string' , location='form' , description='Username') ,
+                    coreapi.Field(name='email' , required=True , type='string' , location='form' , description='Email') ,
                     coreapi.Field(name='password', required=True, type='string',   location='form' ,description='Password'),
                 ]),
                 'Register':coreapi.Link(
@@ -26,11 +26,14 @@ def schema_view(request):
                     action='post',
                     description='Register API',
                     fields=[
-                        coreapi.Field(name='username', required=True, type='string', location='form',description='Username'),
-                        coreapi.Field(name='password', required=True, type='string', location='form',
-                                      description='Password'),
+                        coreapi.Field(name='firstname', required=True, type='string', location='form',description='Firstname'),
+                        coreapi.Field(name='lastname', required=True, type='string', location='form',
+                                      description='LastName'),
                         coreapi.Field(name='email', required=True, type='string', location='form',
                                       description='Email'),
+                        coreapi.Field(name='password', required=True, type='string', location='form',
+                                      description='Password'),
+
                         coreapi.Field(name='status', required=True, type='string', location='form',
                                       description='Status'),
                     ]

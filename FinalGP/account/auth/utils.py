@@ -1,8 +1,8 @@
 from FinalGP import settings
 import datetime
-def jwt_payload_handler(username , password):
+def jwt_payload_handler(email , password):
     return {
-        'username' : username ,
+        'email' : email ,
         'password' : password ,
         'SECRET_KEY' : settings.SECRET_KEY ,
         'Time' : str(datetime.datetime.now())
