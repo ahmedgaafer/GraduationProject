@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
 
     module: {
@@ -13,9 +15,12 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /.svg$/,
-                loader: 'svg-inline-loader'
-            }
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file-loader',
+                options: {
+                  name: '[path][name].[hash].[ext]',
+                },
+            },
         ]
     },
 

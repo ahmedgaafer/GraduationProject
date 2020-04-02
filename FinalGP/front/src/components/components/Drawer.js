@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ContactIcon from '@material-ui/icons/ContactSupportOutlined';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import HomeIcon from '@material-ui/icons/Home';
+import CodeIcon from '@material-ui/icons/Code';
 
 import {
   BrowserRouter as Router,
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
 export default function TemporaryDrawer(props) {
   const anch = 'left';
   const topNav = [['Login', <AccountIcon/>, '/Signin'], ['Sign up',<PersonAddIcon/>, '/Signup' ]];
-  const buttomNav = [['Home', <HomeIcon/>,'/'], ['About Us', <ContactIcon/>, '/AboutUs']];
+  const buttomNav = [['Home', <HomeIcon/>,'/'], ['About Us', <ContactIcon/>, '/AboutUs'], ['Develper Portal',<CodeIcon/> ,'/dev']];
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,

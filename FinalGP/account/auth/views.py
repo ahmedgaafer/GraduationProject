@@ -33,7 +33,7 @@ class Login(APIView):
             res = {
                 'message' : 'Invalid username or password'
             }
-            return Response(res , status=200)
+            return Response(res , status=401)
 
 class Register(APIView):
     permission_classes = [permissions.AllowAny]

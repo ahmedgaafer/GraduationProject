@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,6 +20,7 @@ import {
   Link
 } from "react-router-dom";
 
+import action from '../scripts/loginForm';
 
 function Copyright() {
   return (
@@ -61,7 +62,9 @@ export default function SignIn() {
   const classes = useStyles();
 
  
-
+  useEffect(() => {
+    action();
+  })
 
   return (
     <Container component="main" maxWidth="xs">
@@ -73,7 +76,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} id="loginForm">
           <TextField
             variant="outlined"
             margin="normal"
@@ -81,7 +84,7 @@ export default function SignIn() {
             fullWidth
             id="email"
             label="Email Address"
-            name="email"
+            name="username"
             autoComplete="email"
             autoFocus
           />

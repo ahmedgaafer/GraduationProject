@@ -13,6 +13,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/Aboutus';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import Dev from './pages/dev';
 
 
 function Routing() {
@@ -23,10 +24,11 @@ function Routing() {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/home" component={Home} />            
-            <Route path="/AboutUs" component={AboutUs} />
-            <Route path="/Signin" component={Signin} />
-            <Route path="/Signup" component={Signup} /> 
+            <Route exact path="/home" component={Home} />            
+            <Route exact path="/AboutUs" component={AboutUs} />
+            <Route exact path="/Signin" component={Signin} />
+            <Route exact path="/Signup" component={Signup} /> 
+            <Route exact path="/dev" component={Dev} /> 
 
           </Switch>
         </div>
