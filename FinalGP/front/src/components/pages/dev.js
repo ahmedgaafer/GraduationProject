@@ -1,20 +1,19 @@
 import React from 'react';
 import '../App.css';
 import Nav from '../components/Nav';
+import  Logo from '../'; 
 
-export default function Home() {
+export default class Dev extends React.Component {
+  render(){
   return (
     <div className="App">
       <Nav />
       <header className="App-header">
-        Welcome to IBDP
-        <p>
-          The first platform that helps the user to track their health via instant
-          Diagnoses.
-        </p>
+        <div className="container">
+         <img src={'../logo.svg'}  alt="React Logo" />
+        </div>
       </header>
     </div>
-  );
+  )
+  }
 }
-
-

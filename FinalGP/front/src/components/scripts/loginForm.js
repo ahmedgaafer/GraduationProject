@@ -1,14 +1,10 @@
-
-
 export default function action (){
-  const form = document.getElementById('signupForm');
+  const form = document.getElementById('loginForm');
   
-
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', e =>{
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
-    
-    fetch('/api/auth/register/',{
+    fetch('/api/auth/login/',{
       method:'POST',
       headers: {
         'Content-Type': 'application/json;'
@@ -19,5 +15,6 @@ export default function action (){
     .then(data => {
       console.log(data)
     })
-  });
+  })
+    
 }

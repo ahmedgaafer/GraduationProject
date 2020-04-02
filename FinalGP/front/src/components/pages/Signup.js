@@ -85,7 +85,7 @@ export default function SignUp() {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="username"
                 variant="outlined"
                 required
                 fullWidth
@@ -131,7 +131,7 @@ export default function SignUp() {
             <Grid item xs={12} >
             <FormControl component="fieldset">
               <FormLabel component="legend">Account type</FormLabel>
-              <RadioGroup aria-label="accountType" name="accountType" value={value} onChange={handleChange}>
+              <RadioGroup aria-label="accountType" name="status" value={value} onChange={handleChange}>
                 <FormControlLabel value="patient" control={<Radio />} label="Patient" />
                 <FormControlLabel value="doctor" control={<Radio />} label="Doctor" />
               </RadioGroup>
