@@ -7,12 +7,15 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -26,19 +29,21 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/front/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/api_docs" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\static" />
-      <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\templates\front" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\api_docs" />
       <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\static" />
       <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front" />
       <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\src" />
       <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\src\components" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\static" />
+      <recent name="C:\Users\MohamedHashem\PycharmProjects\FinalGP\front\templates\front" />
     </key>
   </component>
   <component name="RunManager">
@@ -77,6 +82,10 @@
       <option name="presentableId" value="Default" />
       <updated>1585702342326</updated>
       <workItem from="1585702346011" duration="6722000" />
+      <workItem from="1585846040163" duration="124000" />
+      <workItem from="1585847021835" duration="300000" />
+      <workItem from="1585847365217" duration="4281000" />
+      <workItem from="1585851969635" duration="6525000" />
     </task>
     <servers />
   </component>
@@ -84,10 +93,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585859954979">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585859954979" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1585706749390">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585706749390" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1585849854276">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585849854276" />
     <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1585709089897">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -104,5 +121,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585709089897" />
+    <state x="309" y="73" key="SettingsEditor" timestamp="1585847442413">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="309" y="73" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585847442413" />
   </component>
 </project>
