@@ -1,0 +1,11 @@
+{
+    "python.terminal.activateEnvInCurrentTerminal": true,   
+    "python.terminal.executeInFileDir": true,
+    "docstringFormatter.forceWrap": true,
+    "docstringFormatter.preSummaryNewline": true,
+    "docstringFormatter.makeSummaryMultiline": true,
+    "python.terminal.activateEnvironment": true,
+    "python.pythonPath": "C:\\Users\\MohamedHashem\\AppData\\Local\\Continuum\\anaconda3\\envs\\hashem\\python.exe",
+    "python.venvPath": "C:\\Users\\MohamedHashem\\AppData\\Local\\Continuum\\anaconda3\\envs" ,
+    "terminal.integrated.inheritEnv" :false ,
+}
