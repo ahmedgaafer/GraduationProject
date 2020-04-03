@@ -1,0 +1,18 @@
+1- from image_clean.py: call hair_removal(img)
+2- from image_clean.py: call preprocessing(img)
+3- from GLCM.py: call GLCM(img)
+4- load the model using the code written in class.py
+convert the output of step 3 to dataframe, predict using the line of code writtein in class.py
+
+EXAMPLE:
+	img = data_set[i]
+    	img = pre.hair_removal(img)
+    	img = Image.fromarray(img)
+    	img = pre.preprocessing(img)
+    	features.append(glcm.GLCM(img))
+	svc_from_file = joblib.load('saved_model_pkl.pkl') # LOADING THE SAVED MODEL
+	df = pd.DataFrame([features], columns = ['contrast','homo', 'energy', 'correlation'])
+	prediction=svc_from_file.predict(df)
+	print(prediction)
+
+NOTE: my_imports.py contains the libraries imports we need.
