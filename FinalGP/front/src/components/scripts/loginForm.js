@@ -1,10 +1,10 @@
 export default function action (){
   const form = document.getElementById('loginForm');
-  
+  let state;
   form.addEventListener('submit', e =>{
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
-    fetch('/api/auth/login/',{
+    return fetch('/api/auth/login/',{
       method:'POST',
       headers: {
         'Content-Type': 'application/json;'
@@ -13,8 +13,9 @@ export default function action (){
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      return data;
     })
-  })
+  });
+
     
 }

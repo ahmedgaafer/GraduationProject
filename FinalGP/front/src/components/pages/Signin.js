@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, Component } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {AuthContext} from '../index.js';
+import {Redirect} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 import {
@@ -21,6 +25,13 @@ import {
 } from "react-router-dom";
 
 import action from '../scripts/loginForm';
+
+const warn = (timeOut, msg) => {return toast(msg, {
+                                            autoClose:timeOut,
+                                            type: toast.TYPE.ERROR,
+                                            position:toast.POSITION.TOP_CENTER,
+                                            })
+                                }
 
 function Copyright() {
   return (
@@ -60,23 +71,65 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  
+  const [user, setUser] = useContext(AuthContext);
 
- 
   useEffect(() => {
-    action();
+   action();
+    
   })
 
+  const login = e => {
+    const form = document.getElementById('loginForm');
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    return fetch('/api/auth/login/',{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json;'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => {
+
+      if(res.status == 401){
+        throw 'unAuthorized';
+      }
+      return res.json()
+    
+    })
+    .then(data => {
+      const email = data.email;
+      const token = data.Token;
+      setUser({email, token});
+    })
+    .catch(err => {
+      if(err == 'unAuthorized'){
+        return warn(5000,"Wrong Email or password")
+      }
+      alert(`ERROR: ${err}`);
+    })
+ 
+ }
+
+ 
   return (
     <Container component="main" maxWidth="xs">
+      {
+        (user && user.email)?
+          <Redirect to="/profile"/>:false
+        
+      }
+      <ToastContainer />
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in Welcome {(user)?(user.email)?user.email:'nomail':'nouser'}
         </Typography>
-        <form className={classes.form} id="loginForm">
+        <form className={classes.form} id="loginForm" onSubmit={login}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -84,7 +137,7 @@ export default function SignIn() {
             fullWidth
             id="email"
             label="Email Address"
-            name="username"
+            name="email"
             autoComplete="email"
             autoFocus
           />

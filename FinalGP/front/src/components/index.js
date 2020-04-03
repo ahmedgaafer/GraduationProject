@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from "react";
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {AuthProvider} from './providers/Auth';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,12 +13,22 @@ import AboutUs from './pages/Aboutus';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Dev from './pages/dev';
+import Profile from './pages/Profile';
 
+
+
+const globalState = {
+  email: null,
+  token: null
+};
+
+export const  AuthContext = React.createContext(globalState);
 
 function Routing() {
-  return (
-    <AuthProvider>
 
+  const [currentUser, setCurrentUser] = useState(globalState);
+  return (
+    <AuthContext.Provider value={[currentUser, setCurrentUser]}>
       <Router>
         <div>
           <Switch>
@@ -29,11 +38,12 @@ function Routing() {
             <Route exact path="/Signin" component={Signin} />
             <Route exact path="/Signup" component={Signup} /> 
             <Route exact path="/dev" component={Dev} /> 
-
+            <Route exact path="/profile" component={Profile} />
           </Switch>
         </div>
       </Router>
-    </AuthProvider>
+
+      </AuthContext.Provider>
     );
 }
 

@@ -39,6 +39,7 @@
     "dependencies": {
         "file-loader": "^6.0.0",
         "prop-types": "^15.7.2",
+        "react-toastify": "^5.5.0",
         "url-loader": "^4.0.0"
     }
 }

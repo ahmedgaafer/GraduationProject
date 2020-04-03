@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from"react";
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -16,13 +16,14 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import {Redirect} from 'react-router-dom';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import action  from '../scripts/signupFrom';
+import  {AuthContext} from '../index'
 
 function Copyright() {
   return (
@@ -60,18 +61,39 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp() {
   const classes = useStyles();
   const [value, setValue] = React.useState('patient');
-  useEffect(() => {
-      action();
-    
-  })
+  const [user, setUser] = useContext(AuthContext);
   const handleChange = event => {
     setValue(event.target.value);
   };
-
+  
+  const signUp = e => {
+    const form = document.getElementById('signupForm');
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+    
+    fetch('/api/auth/register/',{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json;'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => {
+      const email = data.email;
+      const token = data.Token;
+      setUser({email, token});
+    })
+  }
 
 
   return (
     <Container component="main" maxWidth="xs">
+      {
+        (user && user.email)?
+          <Redirect to="/profile"/>:false
+        
+      }
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -80,12 +102,12 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} id="signupForm">
+        <form className={classes.form} id="signupForm" onSubmit={signUp}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="username"
+                name="firstname"
                 variant="outlined"
                 required
                 fullWidth
@@ -101,7 +123,7 @@ export default function SignUp() {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
+                name="lastname"
                 autoComplete="lname"
               />
             </Grid>

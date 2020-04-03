@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
+const globalState = {
+  user: null,
+  token: null
+};
+export const AuthContext = React.createContext(globalState);
 
-export const AuthContext = React.createContext();
-
-export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    
-  }, []);
-
+export const AuthProvider = () => {
+ 
   return (
-    <AuthContext.Provider
-      value={{
-        currentUser
-      }}
-    >
-      {children}
+    <AuthContext.Provider value={currentUser, setCurrentUser}>
+     
     </AuthContext.Provider>
   );
 };

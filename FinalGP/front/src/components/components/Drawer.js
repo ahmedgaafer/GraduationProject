@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,6 +12,8 @@ import ContactIcon from '@material-ui/icons/ContactSupportOutlined';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import HomeIcon from '@material-ui/icons/Home';
 import CodeIcon from '@material-ui/icons/Code';
+import ProfileIcon from '@material-ui/icons/AccountCircle';
+import { AuthContext } from '../index'
 
 import {
   BrowserRouter as Router,
@@ -44,6 +46,7 @@ export default function TemporaryDrawer(props) {
     bottom: false,
     right: false,
   });
+  const [user, setUser] = useContext(AuthContext);
 
   const toggleDrawer = (anchor, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -64,14 +67,26 @@ export default function TemporaryDrawer(props) {
     >
 
         <List>
-          {topNav.map((text, index) => (
+          
+          {
+          (user && user.email)?
+          <Link className={classes.textLink} to="/profile">
+              <ListItem button key="Profile">
+                  <ListItemIcon><ProfileIcon/></ListItemIcon>
+                  <ListItemText primary="Profile" />
+              </ListItem>
+          </Link>
+          :
+          topNav.map((text, index) => (
             <Link className={classes.textLink} to={text[2] || ""}>
               <ListItem button key={text[0]}>
                   <ListItemIcon>{text[1]}</ListItemIcon>
                   <ListItemText primary={text[0]} />
               </ListItem>
             </Link>
-          ))}
+          ))
+          
+          }
         </List>
         <Divider />
         <List>
