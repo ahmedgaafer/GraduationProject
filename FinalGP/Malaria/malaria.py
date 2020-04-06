@@ -25,7 +25,7 @@ def pre_extract(img):
 
     df = pd.DataFrame([arr], columns=['area_0', 'area_1', 'area_2', 'area_3', 'area_4'])
 
-    model_from_file = joblib.load('malaria.pkl')
+    model_from_file = joblib.load('Malaria/malaria.pkl')
     p = model_from_file.predict(df)
     return p[0]
 

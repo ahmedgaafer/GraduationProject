@@ -39,6 +39,18 @@ def schema_view(request):
                     ]
                 )
             },
+            'Modules':{
+                'Malaria': coreapi.Link(
+                  url='/api-predict/malaria/',
+                  action='post',
+                  description='Malaria Module API',
+
+                    fields=[
+                        coreapi.Field(name='picture' , required=True , type='file' , location='form' , description='Case Picture')
+                    ]
+
+                ),
+            }
 
         }
 
