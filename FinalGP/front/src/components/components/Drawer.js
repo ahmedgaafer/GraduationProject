@@ -13,14 +13,18 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import HomeIcon from '@material-ui/icons/Home';
 import CodeIcon from '@material-ui/icons/Code';
 import ProfileIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AppsIcon from '@material-ui/icons/Apps';
 import { AuthContext } from '../index'
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   list: {
@@ -35,10 +39,12 @@ const useStyles = makeStyles({
   }
 });
 
+
+
 export default function TemporaryDrawer(props) {
   const anch = 'left';
   const topNav = [['Login', <AccountIcon/>, '/Signin'], ['Sign up',<PersonAddIcon/>, '/Signup' ]];
-  const buttomNav = [['Home', <HomeIcon/>,'/'], ['About Us', <ContactIcon/>, '/AboutUs'], ['Develper Portal',<CodeIcon/> ,'/dev']];
+  const buttomNav = [['Home', <HomeIcon/>,'/'], ['Daignostic services', <AppsIcon/>, '/Services'], ['About Us', <ContactIcon/>, '/AboutUs'], ['Develper Portal',<CodeIcon/> ,'/dev']];
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -56,6 +62,12 @@ export default function TemporaryDrawer(props) {
     setState({ ...state, [anchor]: open });
   };
 
+  const logOut = () => {
+    setUser({email: null, token:null});
+    <Redirect to="/"/>
+
+  }
+
   const list = anchor => (
     <div
       className={clsx(classes.list, {
@@ -70,12 +82,20 @@ export default function TemporaryDrawer(props) {
           
           {
           (user && user.email)?
-          <Link className={classes.textLink} to="/profile">
-              <ListItem button key="Profile">
-                  <ListItemIcon><ProfileIcon/></ListItemIcon>
-                  <ListItemText primary="Profile" />
-              </ListItem>
-          </Link>
+          <React.Fragment>
+            <Link className={classes.textLink} to="/profile">
+                <ListItem button key="Profile">
+                    <ListItemIcon><ProfileIcon/></ListItemIcon>
+                    <ListItemText primary="Profile" />
+                </ListItem>
+            </Link>
+            <Button onClick={logOut}>
+            <ListItem button key="SignOut">
+              <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+              <ListItemText primary="SignOut" />
+            </ListItem>
+            </Button>
+          </React.Fragment>
           :
           topNav.map((text, index) => (
             <Link className={classes.textLink} to={text[2] || ""}>

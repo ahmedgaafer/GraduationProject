@@ -5,6 +5,7 @@ import  Logo from '../';
 import {AuthContext} from '../index'
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,10 @@ export default function Profile(){
   
   return (
     <div className="App">
+       {(!user || !user.email)?
+        <Redirect to="/"/> :
+        false
+      }
       <Nav />
       <header className="App-header">
         <Avatar alt={(user && user.email)? user.email:"NoUser"} src={im} className={classes.large}/>

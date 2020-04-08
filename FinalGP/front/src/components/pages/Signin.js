@@ -15,6 +15,7 @@ import {AuthContext} from '../index.js';
 import {Redirect} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { valid, info, warn} from '../scripts/toasts';
 
 
 import {
@@ -24,14 +25,7 @@ import {
   Link
 } from "react-router-dom";
 
-import action from '../scripts/loginForm';
 
-const warn = (timeOut, msg) => {return toast(msg, {
-                                            autoClose:timeOut,
-                                            type: toast.TYPE.ERROR,
-                                            position:toast.POSITION.TOP_CENTER,
-                                            })
-                                }
 
 function Copyright() {
   return (
@@ -74,10 +68,6 @@ export default function SignIn() {
   
   const [user, setUser] = useContext(AuthContext);
 
-  useEffect(() => {
-   action();
-    
-  })
 
   const login = e => {
     const form = document.getElementById('loginForm');
@@ -86,7 +76,8 @@ export default function SignIn() {
     return fetch('/api/auth/login/',{
       method:'POST',
       headers: {
-        'Content-Type': 'application/json;'
+        'Content-Type': 'application/json;',
+        'toekn': localStorage.getItem('token'),
       },
       body: JSON.stringify(data),
     })
@@ -101,7 +92,11 @@ export default function SignIn() {
     .then(data => {
       const email = data.email;
       const token = data.Token;
-      setUser({email, token});
+      const timeOut = 3000;
+      setTimeout(() => {
+        setUser({email, token});
+      }, timeOut);
+      valid(timeOut, `Login success! You will be redirected in ${ timeOut / 1000 } second.`);
     })
     .catch(err => {
       if(err == 'unAuthorized'){
@@ -127,7 +122,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in Welcome {(user)?(user.email)?user.email:'nomail':'nouser'}
+          Sign in Welcome
         </Typography>
         <form className={classes.form} id="loginForm" onSubmit={login}>
           <TextField

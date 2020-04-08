@@ -98,8 +98,8 @@ class Automate(APIView):
             response = post('http://127.0.0.1:8000/api-predict/skin/', files=up)
             content = response.json()
             res = {
-                'Type': 'Skin',
-                'Result': content['Result']
+                'Type': 'Skin Cancer',
+                'Result': str(content['Result']).upper()
             }
             return Response(res, status=200)
 
@@ -121,7 +121,7 @@ class Automate(APIView):
             response = post('http://127.0.0.1:8000/api-predict/brain/', files=up)
             content = response.json()
             res = {
-                'Type': 'Brain',
+                'Type': 'Brain Cancer',
                 'Result': content['Result']
             }
             return Response(res, status=200)

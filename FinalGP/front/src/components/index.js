@@ -14,6 +14,7 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Dev from './pages/dev';
 import Profile from './pages/Profile';
+import Apps from './pages/Apps';
 
 
 
@@ -39,6 +40,7 @@ function Routing() {
             <Route exact path="/Signup" component={Signup} /> 
             <Route exact path="/dev" component={Dev} /> 
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/Services" component={Apps}/>
           </Switch>
         </div>
       </Router>
