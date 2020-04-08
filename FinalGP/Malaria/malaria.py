@@ -11,7 +11,7 @@ def pre_extract(img):
     im_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     ret, thresh = cv2.threshold(im_gray, 127, 255, 0)
-    _,contours,a = cv2.findContours(thresh, 1, 2)
+    contours,a = cv2.findContours(thresh, 1, 2)
     for contour in contours:
         cv2.drawContours(im_gray, contour, -1, (0, 255, 0), 3)
     arr = []
