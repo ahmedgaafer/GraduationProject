@@ -34,7 +34,7 @@ export default function Profile(){
   return (
     <div className="App">
        {(!user || !user.email)?
-        <Redirect to="/"/> :
+        <Redirect to="/Signin"/> :
         false
       }
       <Nav />

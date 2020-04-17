@@ -35,7 +35,7 @@ export default function Home() {
         Welcome to IBDP
         <p>
           The first platform that helps the user to track their health via instant
-          Diagnoses.
+          .
         </p>
         <MediaCard 
           image={image}
