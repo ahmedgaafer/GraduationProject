@@ -1,7 +1,7 @@
 import React, { useEffect, useContext} from 'react';
-import '../App.css';
 import Nav from '../components/Nav';
 import {AuthContext} from '../index.js'
+import '../App.css';
 
 export default function Dev() {
   
