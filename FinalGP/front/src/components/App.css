@@ -5,6 +5,7 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  animation: App-logo-spin;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -27,6 +28,33 @@
 
 .App-link {
   color: #61dafb;
+}
+
+img{
+  max-width: 300px;
+  max-height: 200px;
+  margin: 5px;
+}
+
+a{
+  color: darkblue;
+}
+
+a:hover{
+  color: #61dafb;
+}
+
+a:active{
+  color: crimson;
+}
+
+.MuiCardMedia-img{
+  object-fit: fill !important;
+}
+
+img{
+  max-width: none !important;
+  max-height: none !important;
 }
 
 @keyframes App-logo-spin {

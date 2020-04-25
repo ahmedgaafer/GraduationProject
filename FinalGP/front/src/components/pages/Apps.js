@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../App.css';
 import Nav from '../components/Nav';
 import MediaCard from '../components/card';
@@ -6,8 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { valid, info, warn} from '../scripts/toasts';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import { render } from 'react-dom';
-import { Redirect } from 'react-router';
+import {AuthContext} from '../index.js';
 
 const useStyles = makeStyles({
   root: {
@@ -107,7 +106,16 @@ const data = [
 export default function Home() {
   
   
-                
+  const [user, setUser] = useContext(AuthContext);
+  useEffect(() => {
+    if(!user || !user.email) {
+      const token = localStorage.getItem('token') || null;
+      const email = localStorage.getItem('email') || null;
+      setUser({email, token});
+    }
+  }, [])
+
+
 
   return (
     <div className="App">

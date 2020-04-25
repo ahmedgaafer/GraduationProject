@@ -64,6 +64,7 @@ export default function TemporaryDrawer(props) {
 
   const logOut = () => {
     setUser({email: null, token:null});
+    localStorage.clear();
     <Redirect to="/"/>
 
   }

@@ -45,6 +45,7 @@ export default function MediaCard(props) {
   const togglePannel = () => {
     const newState = (pannel)? false : true;
     changePannel(newState);
+    console.log(localStorage)
   }
 
   return (

@@ -16,15 +16,12 @@ import {Redirect} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { valid, info, warn} from '../scripts/toasts';
-
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-
 
 
 function Copyright() {
@@ -60,29 +57,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
-
 export default function SignIn() {
   const classes = useStyles();
   
   const [user, setUser] = useContext(AuthContext);
 
+  useEffect(()=>{
+    if(!user || !user.email) {
+      const token = localStorage.getItem('token') || null;
+      const email = localStorage.getItem('email') || null;
+      setUser({email, token});
+    }
+  }, []);
 
   const login = e => {
     const form = document.getElementById('loginForm');
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
+    const cashe = document.getElementById('cashe').checked;
+    console.log(cashe);
     return fetch('/api/auth/login/',{
       method:'POST',
       headers: {
         'Content-Type': 'application/json;',
-        'toekn': localStorage.getItem('token'),
       },
       body: JSON.stringify(data),
     })
     .then(res => {
-
       if(res.status == 401){
         throw 'unAuthorized';
       }
@@ -95,6 +96,12 @@ export default function SignIn() {
       const timeOut = 3000;
       setTimeout(() => {
         setUser({email, token});
+
+        if(cashe){
+          localStorage.setItem('token', token);
+          localStorage.setItem('email', email);
+        }
+
       }, timeOut);
       valid(timeOut, `Login success! You will be redirected in ${ timeOut / 1000 } second.`);
     })
@@ -148,8 +155,12 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            control={
+            <Checkbox
+             color="primary"
+             id="cashe" />}
+             label="Remember me"
+            
           />
           <Button
             type="submit"

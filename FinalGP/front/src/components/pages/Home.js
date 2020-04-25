@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../App.css';
 import Nav from '../components/Nav';
 import MediaCard from '../components/card';
 import { ToastContainer, toast } from 'react-toastify';
 import { valid, info, warn} from '../scripts/toasts';
+import {AuthContext} from '../index.js';
 
 const apiCall = () => {
   const file = document.getElementById('imageFile').files[0];
@@ -26,6 +27,15 @@ export default function Home() {
   const image = "https://i.pinimg.com/564x/d2/f6/8b/d2f68bf135f9a47d6f787dc8a968fb28.jpg";
   const title = "Instant Diagnosis";
   const desc = "Just upload an Image of your 'MRI / CT' that you want to diagnose and we will do the rest for you.\n";
+  const [user, setUser] = useContext(AuthContext);
+  useEffect(() => {
+    if(!user || !user.email) {
+      const token = localStorage.getItem('token') || null;
+      const email = localStorage.getItem('email') || null;
+      setUser({email, token});
+    }
+  }, [])
+
 
   return (
     <div className="App">
