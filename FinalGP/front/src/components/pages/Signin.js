@@ -84,7 +84,7 @@ export default function SignIn() {
       body: JSON.stringify(data),
     })
     .then(res => {
-      if(res.status == 401){
+      if(res.status == 401 || res.status == 403){
         throw 'unAuthorized';
       }
       return res.json()

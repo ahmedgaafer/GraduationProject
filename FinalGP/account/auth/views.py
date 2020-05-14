@@ -16,7 +16,7 @@ class Login(APIView):
         data = request.data
         email = data.get('email')
         password = data.get('password')
-        query = User.objects.filter((Q(Email=email) & Q(Password=password)))
+        query = User.objects.filter( (Q(Email=email) & Q(Password=password)) & Q(Active=True) )
         if len(query):
             payload  = jwt_payload_handler(email=email , password=password)
             token    = jwt_encode_handler(payload)
@@ -46,7 +46,10 @@ class Register(APIView):
         Status   = data.get('status')
         query = User.objects.filter((Q(Email=Email)))
         if len(query) == 0:
-            query = User(FirstName=FirstName, LastName=LastName , Password=Password, Email=Email, Status=Status)
+            if Status == 'doctor':
+                query = Doctor(FirstName=FirstName, LastName=LastName , Password=Password, Email=Email)
+            else:
+                query = Patient(FirstName=FirstName, LastName=LastName , Password=Password, Email=Email)
             query.save()
             payload = jwt_payload_handler(email=Email, password=Password)
             token = jwt_encode_handler(payload)

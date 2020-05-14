@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'rest_framework' ,
     'rest_framework_swagger',
     'account' ,
-    'api_docs'
+    'api_docs',
+    'django_cleanup',
+    'imagekit',
 ]
 
 

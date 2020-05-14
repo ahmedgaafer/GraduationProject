@@ -4,6 +4,7 @@ from tensorflow.keras.preprocessing.image import array_to_img
 from tensorflow_core.python.keras.layers.image_preprocessing import ResizeMethod
 
 
+
 def resize(image, w=300, h=300):
 
     image = tf.convert_to_tensor(np.asarray(image))
