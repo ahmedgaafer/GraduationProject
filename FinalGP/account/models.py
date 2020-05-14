@@ -14,10 +14,10 @@ class User(models.Model):
     Image    = models.ImageField(upload_to='../media/profilepic/' , default='../media/profilepic/user.png' )
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        img = Image.open(self.image.path)
+        img = Image.open(self.Image.path)
         output_size = (500, 500)
         img.thumbnail(output_size)
-        img.save(self.image.path)
+        img.save(self.Image.path)
     def __str__(self):
         return f'{self.FirstName} {self.LastName}'
 
@@ -34,12 +34,12 @@ class Doctor(User):
    
 
 class Patient(User):
-    relate_doctor      =models.ForeignKey(Doctor , on_delete=models.CASCADE)
+    relate_doctor      =models.ForeignKey(Doctor, null=True, blank=True , on_delete=models.CASCADE)
     
     
 class Case(models.Model):
     image  = models.ImageField(upload_to='../media/cases/' , default='../media/cases/default.jpeg' ,null=False , blank=False)
-    relate_patient = models.ForeignKey(Patient , on_delete=models.CASCADE)
+    relate_patient = models.ForeignKey(Patient , null=True, blank=True, on_delete=models.CASCADE)
     case_name    = models.CharField(max_length = 100 , null=False , blank=False)
     case_description = models.TextField(null=True , blank=True)
     specialization = models.CharField(max_length=50 , null=False , blank=False)
