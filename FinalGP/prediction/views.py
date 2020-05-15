@@ -21,17 +21,28 @@ import pandas as pd
 from Malaria.malaria import pre_extract
 from Brain.main import Predict_Brain
 from CancerSkin import image_clean , GLCM
+from ..account.models import Patient , Case
 # Create your views here.
 class Malaria(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self , request , *args , **kwargs):
         data    = request.data
-        print(data)
         pic     = data.get('picture')
+        Id = data.get('id')
+        patient=None
+        if Id != None:
+            patient = Patient.objects.filter(id=Id)
         path    = os.path.join(settings.MEDIA_ROOT , 'uploads/Malaria/' , pic.name)
         f_path  = default_storage.save(path, pic)
         img     = cv2.imread('media/uploads/Malaria/' + pic.name)
         prediction = pre_extract(img)
+        img     = cv2.imread('media/uploads/Malaria/' + pic.name)
+        if Id != None:
+            case    = Case(image=img , relate_patient=patient , case_name=prediction[0] ,specialization='Malaria' )
+            case.save()
+        else:
+            case = Case(image=img, relate_patient=None, case_name=prediction[0], specialization='Malaria')
+            case.save()
         return Response(
                 {
                     'Result': prediction[0]
@@ -42,6 +53,10 @@ class Skin(APIView):
     def post(self , request , *args , **kwargs):
         data = request.data
         pic = data.get('picture')
+        Id = data.get('id')
+        patient=None
+        if Id != None:
+            patient = Patient.objects.filter(id=Id)
         path = os.path.join(settings.MEDIA_ROOT, 'uploads/Skin', pic.name)
         f_path = default_storage.save(path, pic)
         img = cv2.imread('media/uploads/Skin/' + pic.name)
@@ -51,6 +66,13 @@ class Skin(APIView):
         df  = pd.DataFrame([GLCM.GLCM(img)] , columns=['contrast','homo', 'energy', 'correlation'])
         svc_from_file = joblib.load('CancerSkin/saved_model_pkl.pkl')
         prediction = svc_from_file.predict(df)
+        img = cv2.imread('media/uploads/Skin/' + pic.name)
+        if Id != None:
+            case = Case(image=img, relate_patient=patient, case_name=prediction[0], specialization='Skin')
+            case.save()
+        else:
+            case = Case(image=img, relate_patient=None, case_name=prediction[0], specialization='Skin')
+            case.save()
         if prediction == 0:
             return Response({
                 'Result': False
@@ -65,12 +87,23 @@ class Brain(APIView):
     def post(self , request , *args , **kwargs):
         data = request.data
         pic = data.get('picture')
+        Id = data.get('id')
+        patient = None
+        if Id != None:
+            patient = Patient.objects.filter(id=Id)
         path = os.path.join(settings.MEDIA_ROOT, 'uploads/Brain/', pic.name)
         f_path = default_storage.save(path, pic)
         img = cv2.imread('media/uploads/Brain/' + pic.name)
         res = Predict_Brain(photo=img)
         svc_from_file = joblib.load('Brain/SVM_BRAIN.pkl')  # LOADING THE SAVED MODEL
         prediction = svc_from_file.predict(res)
+        img = cv2.imread('media/uploads/Brain/' + pic.name)
+        if Id != None:
+            case = Case(image=img, relate_patient=patient, case_name=prediction[0], specialization='Brain')
+            case.save()
+        else:
+            case = Case(image=img, relate_patient=None, case_name=prediction[0], specialization='Brain')
+            case.save()
         if prediction[0] != 'Y':
             return Response({
                 'Result':False
