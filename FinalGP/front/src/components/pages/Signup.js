@@ -81,7 +81,13 @@ export default function SignUp() {
     .then(data => {
       const email = data.email;
       const token = data.Token;
-      setUser({email, token});
+      const id = data.id;
+      const type = data.Type;
+      setUser({email, token, id, type});
+      localStorage.setItem('token', token);
+      localStorage.setItem('email', email);
+      localStorage.setItem('id', id);
+      localStorage.setItem('type', type);
     })
   }
 

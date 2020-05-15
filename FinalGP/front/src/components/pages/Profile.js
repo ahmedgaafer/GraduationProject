@@ -33,7 +33,10 @@ export default function Profile(){
     if(!user || !user.email) {
       const token = localStorage.getItem('token') || null;
       const email = localStorage.getItem('email') || null;
-      setUser({email, token});
+      const id = localStorage.getItem('id') || null;
+      const type = localStorage.getItem('type') || null;
+
+      setUser({email, token, id, type});
     }
   }, [])
   const im = "https://scontent-hbe1-1.xx.fbcdn.net/v/t1.0-9/89819274_1439654562882763_925338076719349760_n.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_ohc=d40Ye8nZpJEAX9-NxJV&_nc_ht=scontent-hbe1-1.xx&oh=a21daaf6a8b1bb35e6150ec1fb7e93c0&oe=5EADC63F";

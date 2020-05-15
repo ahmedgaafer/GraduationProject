@@ -15,12 +15,16 @@ import Signup from './pages/Signup';
 import Dev from './pages/dev';
 import Profile from './pages/Profile';
 import Apps from './pages/Apps';
+import History from './pages/History';
+import Patients from './pages/Patients'
 
 
 
 const globalState = {
   email: null,
-  token: null
+  token: null,
+  id: null,
+  type: null
 };
 
 export const  AuthContext = React.createContext(globalState);
@@ -41,6 +45,8 @@ function Routing() {
             <Route exact path="/dev" component={Dev} /> 
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/Services" component={Apps}/>
+            <Route exact path="/history" component={History}/>
+            <Route exact path="/patients" component={Patients}/>
           </Switch>
         </div>
       </Router>

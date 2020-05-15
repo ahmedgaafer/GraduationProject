@@ -10,6 +10,8 @@ urlpatterns = [
     path('profile/', index),
     path('Services/', index),
     path('home/', index),
+    path('history/', index),
+    path('patients/', index)
 
 ]
 

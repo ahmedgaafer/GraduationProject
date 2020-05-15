@@ -15,6 +15,8 @@ import CodeIcon from '@material-ui/icons/Code';
 import ProfileIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AppsIcon from '@material-ui/icons/Apps';
+import HistoryIcon from '@material-ui/icons/History';
+import ChildCareIcon from '@material-ui/icons/ChildCare';
 import { AuthContext } from '../index'
 
 import {
@@ -63,7 +65,7 @@ export default function TemporaryDrawer(props) {
   };
 
   const logOut = () => {
-    setUser({email: null, token:null});
+    setUser({email: null, token:null, id: null, type:null});
     localStorage.clear();
     <Redirect to="/"/>
 
@@ -90,6 +92,22 @@ export default function TemporaryDrawer(props) {
                     <ListItemText primary="Profile" />
                 </ListItem>
             </Link>
+            {(user.type === "doctor")?
+            
+              <Link className={classes.textLink} to="/patients">
+                <ListItem button key="Patients">
+                    <ListItemIcon><ChildCareIcon/></ListItemIcon>
+                    <ListItemText primary="Patients" />
+                </ListItem>
+              </Link>:
+              <Link className={classes.textLink} to="/history">
+                <ListItem button key="History">
+                    <ListItemIcon><HistoryIcon/></ListItemIcon>
+                    <ListItemText primary="History" />
+                </ListItem>
+              </Link>
+            
+            }
             <Button onClick={logOut}>
             <ListItem button key="SignOut">
               <ListItemIcon><ExitToAppIcon/></ListItemIcon>

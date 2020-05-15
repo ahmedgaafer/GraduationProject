@@ -91,15 +91,20 @@ export default function SignIn() {
     
     })
     .then(data => {
+      console.log(data)
       const email = data.email;
       const token = data.Token;
+      const id = data.id;
+      const type = data.Type;
       const timeOut = 3000;
       setTimeout(() => {
-        setUser({email, token});
+        setUser({email, token, id, type});
 
         if(cashe){
           localStorage.setItem('token', token);
           localStorage.setItem('email', email);
+          localStorage.setItem('id', id);
+          localStorage.setItem('type', type);
         }
 
       }, timeOut);

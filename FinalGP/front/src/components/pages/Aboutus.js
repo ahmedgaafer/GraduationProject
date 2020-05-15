@@ -48,7 +48,10 @@ export default function AboutUs() {
     if(!user || !user.email) {
       const token = localStorage.getItem('token') || null;
       const email = localStorage.getItem('email') || null;
-      setUser({email, token});
+      const id = localStorage.getItem('id') || null;
+      const type = localStorage.getItem('type') || null;
+
+      setUser({email, token, id, type});
     }
   }, [])
 

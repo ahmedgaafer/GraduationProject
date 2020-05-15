@@ -21,6 +21,7 @@ class Login(APIView):
    
         if len(query):
             d = Doctor.objects.filter( Email=email )
+            Id = query[0].id
             accType = "patient"
             if len(d):
                 accType="doctor"
@@ -32,7 +33,8 @@ class Login(APIView):
                      'email' : email ,
                      'password' : password ,
                      'Type' : accType,
-                     'Token'    : token
+                     'Token'    : token ,
+                     'id' : Id
             }
             Query = Token(Username=query[0] , Token=token)
             Query.save()
@@ -61,6 +63,8 @@ class Register(APIView):
             else:
                 query = Patient(FirstName=FirstName, LastName=LastName , Password=Password, Email=Email)
             query.save()
+            query = User.objects.filter((Q(Email=Email))).first()
+            Id = query.id
             payload = jwt_payload_handler(email=Email, password=Password)
             token = jwt_encode_handler(payload)
             Query = Token(Username=query, Token=token)
@@ -70,7 +74,8 @@ class Register(APIView):
                 'email': Email,
                 'password': Password,
                 'Type' : accType,
-                'Token': token
+                'Token': token ,
+                'id' : Id
             }
             return Response(res, status=200)
 

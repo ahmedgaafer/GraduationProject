@@ -8,16 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import {AuthContext} from '../index.js';
 
-const useStyles = makeStyles({
-  root: {
 
-  }
-});
-
-const apiCall1 = () => {
+const apiCall1 = (id) => {
   const file = document.getElementById('1').files[0];
   const formData = new FormData();
   formData.append('picture', file);
+  formData.append('id', id)
 
   fetch(`/api-predict/brain/`,{
     method:'POST',   
@@ -30,10 +26,11 @@ const apiCall1 = () => {
   })
 }
 
-const apiCall2 = () => {
+const apiCall2 = (id) => {
   const file = document.getElementById('2').files[0];
   const formData = new FormData();
   formData.append('picture', file);
+  formData.append('id', id);
 
   fetch(`/api-predict/malaria/`,{
     method:'POST',   
@@ -46,10 +43,11 @@ const apiCall2 = () => {
   })
 }
 
-const apiCall3 = () => {
+const apiCall3 = (id) => {
   const file = document.getElementById('3').files[0];
   const formData = new FormData();
   formData.append('picture', file);
+  formData.append('id', id)
 
   fetch(`/api-predict/skin/`,{
     method:'POST',   
@@ -85,7 +83,7 @@ const data = [
 ] 
 
 
- const items = () => {
+ const items = (id) => {
    let DOM = [];
    for(let i = 0; i < data.length; i++){
      DOM.push(
@@ -94,7 +92,7 @@ const data = [
         image={data[i][0]}
         title={data[i][1]}
         desc={data[i][2]}
-        fn={data[i][3]}
+        fn={() => data[i][3](id)}
         id={(i+1).toString()}
         />
     </Box>
@@ -111,7 +109,10 @@ export default function Home() {
     if(!user || !user.email) {
       const token = localStorage.getItem('token') || null;
       const email = localStorage.getItem('email') || null;
-      setUser({email, token});
+      const id = localStorage.getItem('id') || null;
+      const type = localStorage.getItem('type') || null;
+
+      setUser({email, token, id, type});
     }
   }, [])
 
@@ -128,7 +129,7 @@ export default function Home() {
         
         <div style={{ width: '100%' }}>
         <Box display="flex" p={1} flexDirection="row" flexWrap="wrap" justifyContent="center">
-          {items()}
+          {items(user.id)}
         </Box>
         </div>
         
