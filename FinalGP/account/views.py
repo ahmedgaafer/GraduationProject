@@ -57,11 +57,12 @@ class PatientCases(APIView):
     permission_classes = [permissions.AllowAny]
     
     def get(self , request , *args , **kwargs):
+
         Id   = kwargs['id']
         query  = Case.objects.filter(relate_patient=Id).values()
         data  = []
         for i in query:
             data.append(i)
-            
+        print(Id, data)
         return Response(data , status=200)
         

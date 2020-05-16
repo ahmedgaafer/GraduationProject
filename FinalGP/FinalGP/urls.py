@@ -25,7 +25,8 @@ urlpatterns = [
     path('' , include('front.urls')) ,
     path('api/auth/' , include('account.auth.urls')) ,
     path('api-docs/' , include('api_docs.urls')) ,
-    path('api-predict/' , include('prediction.urls'))
+    path('api-predict/' , include('prediction.urls')),
+    path('api/', include('account.urls'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
