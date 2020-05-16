@@ -14,7 +14,7 @@ import Input from '@material-ui/core/Input';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 400,
   },
   rootPaper: {
     backgroundColor:'#C0C4D6',

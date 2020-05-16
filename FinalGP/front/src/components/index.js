@@ -16,7 +16,8 @@ import Dev from './pages/dev';
 import Profile from './pages/Profile';
 import Apps from './pages/Apps';
 import History from './pages/History';
-import Patients from './pages/Patients'
+import Patients from './pages/Patients';
+import PatientView from './pages/PatientView';
 
 
 
@@ -47,6 +48,7 @@ function Routing() {
             <Route exact path="/Services" component={Apps}/>
             <Route exact path="/history" component={History}/>
             <Route exact path="/patients" component={Patients}/>
+            <Route exact path="/view"  render={(props) => <PatientView {...props}/>} />
           </Switch>
         </div>
       </Router>

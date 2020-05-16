@@ -13,10 +13,16 @@ import {AuthContext} from '../index.js';
 const useStyles = makeStyles({
   root: {
     width: '85%',
+    
+    
   },
   container: {
     maxHeight: 440,
   },
+  table:{
+    backgroundColor: "#282c34",
+    color:"white"
+  }
 });
 
 const columns = [
@@ -44,31 +50,31 @@ const columns = [
 ];
 
 
+const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 function getPatientHistory(id){
   const rows = []
   if(! id) return rows
 
-  console.log(id, "IN!!")
   fetch(`/api/list-patient-cases/${id}/`)
   .then(res => res.json())
   .then(data => {
     data.forEach( Case => {
       let {id, specialization, case_name, case_description} = Case;
       case_description = case_description || 'Wating';
-      rows.push( {id, specialization, case_name, case_description})
+      const code = id
+      rows.push( {id, specialization, case_name, case_description, code})
 
     })
   })
-  console.log(rows)
   return rows
 }
 
-export default function Patient() {
+export default function Patient(props) {
   const classes = useStyles();
   const [user, setUser] = useContext(AuthContext);
-  const [state, setState] = useState({id : null, rows: []})
+  const [state, setState] = useState({id : props.id, rows: getPatientHistory(props.id)})
   const [page, setPage] = useState(0);
-  const [rows, setRows] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(100);
 
 
@@ -81,15 +87,21 @@ export default function Patient() {
     setPage(0);
   };
 
-  
   React.useEffect(() => {
     if(!user || !user.email) {
       const id = localStorage.getItem('id') || null;
       setState({id: id, rows: getPatientHistory(id)})
-      setTimeout(() => {
-
+      sleep(1000)
+      .then(() => {
         setRowsPerPage(10)
-      }, 1000)
+      })
+
+    }
+    if(user && user.id){
+      sleep(1500)
+      .then(() => {
+        setRowsPerPage(10)
+      })
     }
   }, [])
 

@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 export default function TemporaryDrawer(props) {
   const anch = 'left';
   const topNav = [['Login', <AccountIcon/>, '/Signin'], ['Sign up',<PersonAddIcon/>, '/Signup' ]];
-  const buttomNav = [['Home', <HomeIcon/>,'/'], ['Daignostic services', <AppsIcon/>, '/Services'], ['About Us', <ContactIcon/>, '/AboutUs'], ['Develper Portal',<CodeIcon/> ,'/dev']];
+  const buttomNav = [['Home', <HomeIcon/>,'/'], ['Daignostic services', <AppsIcon/>, '/Services'], ['About Us', <ContactIcon/>, '/AboutUs'], ['Developer Portal',<CodeIcon/> ,'/dev']];
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -67,7 +67,7 @@ export default function TemporaryDrawer(props) {
   const logOut = () => {
     setUser({email: null, token:null, id: null, type:null});
     localStorage.clear();
-    <Redirect to="/"/>
+    <Redirect to="/home"/>
 
   }
 

@@ -23,6 +23,10 @@ const apiCall = () => {
 
 }
 
+const s = {
+  color:"#35ABE3",
+  textTransform:"uppercase"
+}
 export default function Home() {
   const image = "https://i.pinimg.com/564x/d2/f6/8b/d2f68bf135f9a47d6f787dc8a968fb28.jpg";
   const title = "Instant Diagnosis";
@@ -47,17 +51,24 @@ export default function Home() {
       <ToastContainer />
       <Nav />
       <header className="App-header">
-        Welcome to IBDP
-        <p>
-          The first platform that helps the user to track their health via instant
-          .
-        </p>
-        <MediaCard 
-          image={image}
-          title={title}
-          desc={desc}
-          fn={apiCall}
-          />
+        <div className="back-img">
+            <img src="https://simplecore.intel.com/itpeernetwork/wp-content/uploads/sites/38/2017/02/precision-medicine-ai-2.jpg" alt="background" />
+        </div>
+        <div class="text-intro">
+          Welcome to IBDP
+          <p>
+            The <span style={s}>first</span> platform that helps the user to track their health via instant
+            .
+          </p>
+        </div>
+        <div className="lift">
+          <MediaCard 
+            image={image}
+            title={title}
+            desc={desc}
+            fn={apiCall}
+            />
+        </div>
       </header>
     </div>
   );

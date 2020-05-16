@@ -4,17 +4,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import ContactIcon from '@material-ui/icons/ContactSupportOutlined';
+import HomeIcon from '@material-ui/icons/Home';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Drawer from './Drawer'
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import {AuthContext} from '../index'
 import {
   BrowserRouter as Router,
@@ -26,6 +26,10 @@ import {
 
 
 const useStyles = makeStyles(theme => ({
+  textLink: {
+    color: 'inherit',
+    textDecoration: 'inherit',
+  },
   grow: {
     flexGrow: 1,
   },
@@ -134,7 +138,6 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <Link to="/profile" className={classes.link}><MenuItem onClick={handleMenuClose}>Profile </MenuItem></Link>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
 
@@ -162,6 +165,8 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
+
+  const buttomNav = [['Home', <HomeIcon/>,'/'], ['About Us', <ContactIcon/>, '/AboutUs']]
   
   const toggleAnchor = anch => event => {
 
@@ -191,24 +196,20 @@ export default function PrimarySearchAppBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             IBDP
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+
+          {buttomNav.map((text, index) => (
+            <Link className={classes.textLink} to={text[2]}>
+              <ListItem button key={text[0]}>
+                
+                <ListItemText primary={text[0]} />
+              </ListItem>
+            </Link>
+          ))}
+          
           <div className={classes.grow} />
           {(user && user.email)? (
           <div>
             <div className={classes.sectionDesktop}> 
-            
                 <IconButton
                   edge="end"
                   aria-label="account of current user"
