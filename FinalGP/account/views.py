@@ -48,9 +48,8 @@ class DoctorOfPatient(APIView):
     
     def get(self , request , *args , **kwargs):
         id_patient = kwargs['id']
-        query = Patient.objects.filter(id=id_patient).first()
-        doctor_id = query.relate_doctor.id
-        return Response({'Id' : doctor_id} , status=200)
+        query = Patient.objects.filter(id=id_patient).values()
+        return Response(data=query , status=200)
     
     
 class PatientCases(APIView):
