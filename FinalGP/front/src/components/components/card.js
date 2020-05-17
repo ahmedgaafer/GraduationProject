@@ -45,7 +45,6 @@ export default function MediaCard(props) {
   const togglePannel = () => {
     const newState = (pannel)? false : true;
     changePannel(newState);
-    console.log(localStorage)
   }
 
   return (
@@ -75,7 +74,7 @@ export default function MediaCard(props) {
         <Card className={classes.rootPaper}>
         <CardContent>
           Upload Image
-          <Input type="file" id={id}/>
+          <Input type="file" id={id || 'instant-image-file'} />
           <Button className={classes.margin} variant="contained" color="primary" onClick={fn}>
             Submit
           </Button> 

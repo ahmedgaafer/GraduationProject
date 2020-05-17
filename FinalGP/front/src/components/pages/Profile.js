@@ -180,7 +180,7 @@ export default function Profile(){
       })
       .then(res => res.json())
       .then(res => {
-        if(res.status === 200){ valid(7000, res.process); setDoc(doc + 1); }else{ warn(7000, res.process) }
+       valid(7000, res.process); setDoc(doc + 1);
       }).then(() => {
         handleClose()
       })

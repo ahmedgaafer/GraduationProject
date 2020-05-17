@@ -7,13 +7,13 @@ import { valid, info, warn} from '../scripts/toasts';
 import {AuthContext} from '../index.js';
 
 const apiCall = () => {
-  const file = document.getElementById('imageFile').files[0];
+  const file = document.getElementById('instant-image-file').files[0];
+  console.log(file)
   const formData = new FormData();
   formData.append('picture', file);
   fetch('/api-predict/automate/',{
     method:'POST',
-     
-      body: formData,
+    body: formData,
   })
   .then(res => res.json())
   .then(data => {
