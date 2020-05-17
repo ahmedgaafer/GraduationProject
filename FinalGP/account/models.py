@@ -51,4 +51,4 @@ class Case(models.Model):
         img.thumbnail(output_size)
         img.save(self.image.path)
     def __str__(self):
-        return f'{self.username}'
+        return f'{self.relate_patient}'
