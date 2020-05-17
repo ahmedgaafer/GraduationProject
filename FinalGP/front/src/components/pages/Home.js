@@ -39,9 +39,7 @@ export default function Home() {
       const id = localStorage.getItem('id') || null;
       const type = localStorage.getItem('type') || null;
 
-      setUser({email, token, id, type});
-
-      
+      setUser({email, token, id, type});   
     }
   }, [])
 
@@ -57,7 +55,7 @@ export default function Home() {
         <div class="text-intro">
           Welcome to IBDP
           <p>
-            The <span style={s}>first</span> platform that helps the user to track their health via instant
+            The <span style={s}>first</span> platform that helps the user to track their health via instant Diagnosis
             .
           </p>
         </div>

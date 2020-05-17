@@ -4,6 +4,7 @@ from .views import *
 from django.conf.urls.static import static
 urlpatterns = [
     path('list-doctors/' , ListDoctors.as_view()),
+    path('list-clear-patients/', ListClearPatients.as_view()),
     path('list-doctor-patients/<int:id>/' , ListPatientsofDoctor.as_view()),
     path('add-doctor-patient/' , AddPatientToDoctor.as_view()) ,
     path('doctor-of-patient/<int:id>/' , DoctorOfPatient.as_view()) , 

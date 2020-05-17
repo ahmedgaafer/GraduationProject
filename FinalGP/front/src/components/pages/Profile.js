@@ -1,11 +1,24 @@
 import React, {useContext, useEffect, useState} from 'react';
-import '../App.css';
-import Nav from '../components/Nav';
 import {AuthContext} from '../index'
-import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router';
+import { valid, warn} from '../scripts/toasts';
+import { ToastContainer } from 'react-toastify';
+import Nav from '../components/Nav';
+import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import '../App.css';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,8 +68,21 @@ const useStyles = makeStyles((theme) => ({
   push:{
     marginTop: '3vh',
   },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  btn:{
+    padding: '1vh',
+    backgroundColor: "crimson",
+    color:"#eee",
+    display: "inline",
 
-
+  }
 }));
 
  async function getDoctor(id){
@@ -81,11 +107,25 @@ async function getPatientNumbers(id){
   return nop;
 
 }
+
+function getClearPatient(){
+  const DOM = []
+  fetch('/api/list-clear-patients/')
+  .then(res => res.json())
+  .then(data => {
+    data.forEach(res => DOM.push(<MenuItem key={res.Email} value={res.Email}>{`${res.FirstName} ${res.LastName}`}</MenuItem>))   
+  })
+  return DOM;
+}
+
 export default function Profile(){
   
   const classes = useStyles();
   const [user, setUser] = useContext(AuthContext);
   const [doc, setDoc] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [pmail, setMail] = React.useState('');
+
   useEffect( () => {
     if(!user || !user.email) {
       const token = localStorage.getItem('token') || null;
@@ -113,6 +153,39 @@ export default function Profile(){
     
   }, [])
 
+  const handleChange = (event) => {
+    setMail(event.target.value);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const connect = () => {
+    console.log(pmail)
+      if(!pmail || pmail === ''){
+        warn(7000, 'Please choose a valid patient option')
+        return true;
+      }
+      const formData = new FormData();
+      formData.append('email_patient', pmail)
+      formData.append('id_doctor', user.id)
+      fetch('/api/add-doctor-patient/',{
+        method:"POST",
+        body: formData,
+      })
+      .then(res => res.json())
+      .then(res => {
+        if(res.status === 200){ valid(7000, res.process); setDoc(doc + 1); }else{ warn(7000, res.process) }
+      }).then(() => {
+        handleClose()
+      })
+  }
+
   const im = user.email || null;
   
   return (
@@ -122,6 +195,7 @@ export default function Profile(){
         false
       }
       <Nav />
+      <ToastContainer />
       <header className="App-header">
         <Avatar alt={(user && user.email)? user.email:"NoUser"} src={im} className={classes.large}/>
         <div className={classes.paper}>
@@ -146,12 +220,50 @@ export default function Profile(){
                 {(doc)? doc: "no doctor"}
               </Paper>
             </div>:
-            <div className={classes.push}>
-              <strong>Number of patients:</strong> 
-              <Paper className={classes.item}>
-                {(doc)? doc: 0}
-              </Paper>
-            </div>
+            <React.Fragment>
+              <div className={classes.push}>
+                <strong>Number of patients:</strong> 
+                <Paper className={classes.item}>
+                  {(doc)? doc: 0}
+                </Paper>
+              </div>
+              <div className={classes.push}>
+                
+                <Paper className={classes.btn}>
+                  <Button style={{color: '#eee', fontSize:"18px"}} onClick={handleClickOpen}><strong>Connect to patient </strong></Button>
+                </Paper>
+                <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+                <DialogTitle>Connect to patient</DialogTitle>
+                <DialogContent>
+                  <form className={classes.container}>
+                    <FormControl className={classes.formControl}>
+                      <InputLabel id="demo-dialog-select-label">Patient name</InputLabel>
+                      <Select
+                        labelId="demo-dialog-select-label"
+                        id="demo-dialog-select"
+                        value={pmail}
+                        onChange={handleChange}
+                        input={<Input />}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        {getClearPatient()}
+                      </Select>
+                    </FormControl>
+                  </form>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button id="connect-submit" onClick={connect} color="primary">
+                    Connect 
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              </div>
+            </React.Fragment>
           }
 
         </Paper>
