@@ -27,7 +27,6 @@ const globalState = {
   id: null,
   type: null
 };
-
 export const  AuthContext = React.createContext(globalState);
 
 function Routing() {
@@ -52,8 +51,7 @@ function Routing() {
           </Switch>
         </div>
       </Router>
-
-      </AuthContext.Provider>
+    </AuthContext.Provider>
     );
 }
 

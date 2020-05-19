@@ -87,8 +87,7 @@ export default function SignIn() {
       if(res.status == 401 || res.status == 403){
         throw 'unAuthorized';
       }
-      return res.json()
-    
+      return res.json() 
     })
     .then(data => {
       console.log(data)
@@ -99,7 +98,6 @@ export default function SignIn() {
       const timeOut = 3000;
       setTimeout(() => {
         setUser({email, token, id, type});
-
         if(cashe){
           localStorage.setItem('token', token);
           localStorage.setItem('email', email);

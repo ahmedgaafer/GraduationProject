@@ -8,7 +8,6 @@ import {AuthContext} from '../index.js';
 
 const apiCall = () => {
   const file = document.getElementById('instant-image-file').files[0];
-  console.log(file)
   const formData = new FormData();
   formData.append('picture', file);
   fetch('/api-predict/automate/',{
@@ -27,6 +26,7 @@ const s = {
   color:"#35ABE3",
   textTransform:"uppercase"
 }
+
 export default function Home() {
   const image = "https://i.pinimg.com/564x/d2/f6/8b/d2f68bf135f9a47d6f787dc8a968fb28.jpg";
   const title = "Instant Diagnosis";
@@ -42,7 +42,6 @@ export default function Home() {
       setUser({email, token, id, type});   
     }
   }, [])
-
 
   return (
     <div className="App">

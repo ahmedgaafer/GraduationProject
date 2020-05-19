@@ -54,10 +54,8 @@ export default function AboutUs() {
       setUser({email, token, id, type});
     }
   }, [])
-
   const classes = useStyles();
-
-
+  
   return (
     <div className="App">
       <Nav />
